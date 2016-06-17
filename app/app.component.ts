@@ -23,6 +23,11 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     name: 'HeroDetail',
     component: HeroDetailComponent
     },
+    {
+      path:'/createhero',
+      name: 'CreateHero',
+      component:HeroDetailComponent      
+    }
 
 ])
 
@@ -31,7 +36,8 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     template:`<h1>{{title}}</h1>
            <nav>
                 <a [routerLink]="['Dashboard']">Dashboard</a> | 
-                <a [routerLink]="['Heroes']">Heroes</a>
+                <a [routerLink]="['Heroes']">Heroes</a> |
+                <a [routerLink]="['CreateHero']">Create Hero</a> 
             </nav>
             <router-outlet></router-outlet>
     `,
@@ -44,6 +50,6 @@ export class AppComponent{
     title: string = 'Tour of heroes';
 
     constructor(private heroService:HeroService){
-        
+        console.log(heroService);
     }
 }

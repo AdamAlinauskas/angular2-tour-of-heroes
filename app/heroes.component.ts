@@ -16,7 +16,7 @@ import { HeroDetailComponent } from './hero-detail.component';
 export class HeroesComponent implements OnInit {
     selectedHero: Hero;
     addingHero:boolean = false;
-
+    error:any;
     heroes: Hero[];
 
     constructor(private heroService: HeroService, private router:Router) { }
@@ -59,7 +59,5 @@ export class HeroesComponent implements OnInit {
           })
           .catch(error => this.error = error); // TODO: Display error message
     }
-
-    private error;
 
 }

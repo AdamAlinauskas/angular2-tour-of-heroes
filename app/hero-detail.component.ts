@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {Hero} from './hero'
 
-import { RouteParams } from '@angular/router-deprecated';
+import { RouteParams,Router } from '@angular/router-deprecated';
 import { HeroService } from './hero.service';
 
 @Component({
@@ -17,10 +17,12 @@ export class HeroDetailComponent implements OnInit{
   close1 = new EventEmitter<Hero>();
   
   error: any;
+
+  isStandAloneViewForCreate:boolean;
   
   navigated = false; // true if navigated here
 
-    constructor(private heroService: HeroService, private routeParams: RouteParams) {
+    constructor(private heroService: HeroService, private routeParams: RouteParams, private router:Router) {
     
     }
 
@@ -33,6 +35,10 @@ export class HeroDetailComponent implements OnInit{
     } else {
       this.navigated = false;
       this.hero = new Hero();
+    }
+    let currentRoute = this.router.generate(['CreateHero'])
+    if(currentRoute.urlPath == location.pathname.replace('/','')){
+      this.isStandAloneViewForCreate = true;
     }
   }
 
@@ -49,6 +55,10 @@ export class HeroDetailComponent implements OnInit{
 
     goBack(savedHero: Hero = null) {
       this.close1.emit(savedHero);
+
+      if(this.isStandAloneViewForCreate)
+        this.router.navigate(['Heroes']); 
+
      if (this.navigated) { window.history.back(); }
     }
 
